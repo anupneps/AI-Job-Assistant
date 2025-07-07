@@ -43,3 +43,6 @@ backend/build/
 
 # Misc
 *.local
+
+# Docs
+docs/api.md

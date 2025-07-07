@@ -43,6 +43,15 @@ const userSchema = new mongoose.Schema({
     github: { type: String, default: '' },
     // Add more fields as needed
   },
+  googleId: {
+    type: String,
+    default: null,
+  },
+  authType: {
+    type: String,
+    enum: ['local', 'google'],
+    default: 'local',
+  },
 });
 
 module.exports = mongoose.model('User', userSchema); 
