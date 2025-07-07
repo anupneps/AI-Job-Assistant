@@ -1,6 +1,6 @@
-const userService = require('../services/userService');
-const jwt = require('jsonwebtoken');
-const User = require('../Models/User');
+import * as userService from '../services/userService.js';
+import jwt from 'jsonwebtoken';
+import User from '../Models/User.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 const JWT_EXPIRES_IN = '7d';
@@ -11,7 +11,7 @@ function signToken(user) {
 }
 
 // Register a new user (local auth)
-async function register(req, res) {
+export async function register(req, res) {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ message: 'Username and password are required.' });
@@ -33,7 +33,7 @@ async function register(req, res) {
 }
 
 // Login a user (local auth)
-async function login(req, res) {
+export async function login(req, res) {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ message: 'Username and password are required.' });
@@ -58,12 +58,12 @@ async function login(req, res) {
 }
 
 // Logout (stateless with JWT; client should delete token)
-function logout(req, res) {
+export function logout(req, res) {
   res.json({ message: 'Logged out successfully.' });
 }
 
 // Get the current user's profile (protected route)
-async function getProfile(req, res) {
+export async function getProfile(req, res) {
   try {
     // req.user is set by requireLogin middleware
     const user = await userService.getUserById(req.user.id);
@@ -76,9 +76,9 @@ async function getProfile(req, res) {
 
 // Google OAuth callback handler
 // Handles Google login, finds/creates user, and returns JWT
-async function googleCallback(req, res, next) {
-  const passport = require('passport');
-  passport.authenticate('google', async (err, profile, info) => {
+export async function googleCallback(req, res, next) {
+  const passport = await import('passport');
+  passport.default.authenticate('google', async (err, profile, info) => {
     if (err || !profile) {
       return res.status(401).json({ message: 'Google authentication failed.' });
     }
@@ -107,10 +107,3 @@ async function googleCallback(req, res, next) {
   })(req, res, next);
 }
 
-module.exports = {
-  register,
-  login,
-  logout,
-  getProfile,
-  googleCallback,
-}; 

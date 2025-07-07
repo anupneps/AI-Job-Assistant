@@ -1,11 +1,12 @@
-const express = require('express');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('./Models/User');
+import express from 'express';
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import User from './Models/User.js';
+import connectDB from './Data/mongo.js';
+import authRoutes from './routes/auth.js';
+
 const app = express();
 const PORT = 3001;
-const connectDB = require('./Data/mongo');
-const authRoutes = require('./routes/auth');
 
 // Passport config
 passport.use(new GoogleStrategy({

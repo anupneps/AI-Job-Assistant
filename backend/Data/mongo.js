@@ -1,14 +1,12 @@
-const mongoose = require('mongoose');
-require('dotenv').config();
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const MONGO_URI = process.env.MONGO_URI;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(MONGO_URI);
     console.log('Connected to MongoDB (Job-Assistant-DB)');
   } catch (err) {
     console.error('MongoDB connection error:', err);
@@ -16,4 +14,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB; 
+export default connectDB; 

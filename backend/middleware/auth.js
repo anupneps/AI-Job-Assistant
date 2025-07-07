@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
-function requireLogin(req, res, next) {
+export function requireLogin(req, res, next) {
   const authHeader = req.headers['authorization'];
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ message: 'Unauthorized' });
@@ -14,6 +14,4 @@ function requireLogin(req, res, next) {
   } catch (err) {
     return res.status(401).json({ message: 'Invalid or expired token' });
   }
-}
-
-module.exports = { requireLogin }; 
+} 

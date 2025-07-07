@@ -1,7 +1,7 @@
-const express = require('express');
-const authController = require('../controllers/authController');
-const passport = require('passport');
-const { requireLogin } = require('../middleware/auth');
+import express from 'express';
+import * as authController from '../controllers/authController.js';
+import passport from 'passport';
+import { requireLogin } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -14,4 +14,4 @@ router.get('/profile', requireLogin, authController.getProfile);
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/auth/google/callback', authController.googleCallback);
 
-module.exports = router; 
+export default router; 
