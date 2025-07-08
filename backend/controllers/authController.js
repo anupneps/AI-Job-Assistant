@@ -10,6 +10,17 @@ function signToken(user) {
   return jwt.sign({ id: user._id, username: user.username, authType: user.authType }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 }
 
+
+export async function getAllUsers(req, res) {
+  try {
+    const users = await userService.getAllUsers();
+    console.log("Users :",users);
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error.' });
+  }
+}
+
 // Register a new user (local auth)
 export async function register(req, res) {
   const { username, password } = req.body;
@@ -25,7 +36,6 @@ export async function register(req, res) {
     // Create user and return JWT
     const user = await userService.createUser(username, password);
     const token = signToken(user);
-    console.log("Token :",token); // For debugging
     res.status(201).json({ message: 'User registered successfully.', token });
   } catch (err) {
     res.status(500).json({ message: 'Server error.' });

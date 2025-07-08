@@ -56,11 +56,13 @@ frontend/
 
 ## Features
 
-- [x] User registration/login with JWT
-- [x] JWT-protected profile route
-- [x] Google OAuth endpoints scaffolded
-- [ ] CV upload and parsing (coming soon)
-- [ ] Multi-agent backend (coming soon)
+- User authentication (JWT, Google OAuth)
+- Upload CV (PDF) and extract profile info
+- User profile management
+
+## API Overview
+
+- `POST /api/upload-resume` — Upload a PDF resume (authenticated). Extracts name, email, phone, and skills, and updates the user profile.
 
 ## License
 

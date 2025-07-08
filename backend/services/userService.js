@@ -18,3 +18,7 @@ export async function comparePassword(plain, hash) {
 export async function getUserById(id) {
   return User.findById(id).select('-password');
 } 
+
+export async function getAllUsers() {
+  return await User.find().select('-password');
+}

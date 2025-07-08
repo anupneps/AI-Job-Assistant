@@ -14,4 +14,6 @@ router.get('/profile', requireLogin, authController.getProfile);
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/auth/google/callback', authController.googleCallback);
 
+router.get('/users', authController.getAllUsers);
+
 export default router; 

@@ -4,6 +4,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from './Models/User.js';
 import connectDB from './Data/mongo.js';
 import authRoutes from './routes/auth.js';
+import uploadRoutes from './routes/upload.js';
 
 const app = express();
 const PORT = 3001;
@@ -22,6 +23,15 @@ passport.use(new GoogleStrategy({
 
 app.use(passport.initialize());
 
+// Skip body parsers for multipart/form-data (file uploads)
+app.use((req, res, next) => {
+  if (req.is('multipart/form-data')) {
+    console.log('multipart/form-data');
+    return next();
+  }
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -32,6 +42,16 @@ app.get('/', (req, res) => {
 connectDB();
 
 app.use('/api', authRoutes);
+app.use('/api', uploadRoutes);
+
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  if (err) {
+    res.status(400).json({ message: err.message || 'Bad Request' });
+  } else {
+    next();
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
