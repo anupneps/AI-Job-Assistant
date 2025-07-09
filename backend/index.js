@@ -5,9 +5,15 @@ import User from './Models/User.js';
 import connectDB from './Data/mongo.js';
 import authRoutes from './routes/auth.js';
 import uploadRoutes from './routes/upload.js';
+import cors from 'cors';
 
 const app = express();
 const PORT = 3001;
+
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true, // if you use cookies or need credentials
+}));
 
 // Passport config
 passport.use(new GoogleStrategy({

@@ -5,9 +5,13 @@ export async function findUserByUsername(username) {
   return User.findOne({ username });
 }
 
-export async function createUser(username, password) {
+export async function findUserByEmail(email) {
+  return User.findOne({ email });
+}
+
+export async function createUser(username, email, password) {
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({ username, password: hashedPassword });
+  const user = new User({ username, email, password: hashedPassword, userProfile: { email } });
   return user.save();
 }
 

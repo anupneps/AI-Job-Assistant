@@ -23,20 +23,24 @@ export async function getAllUsers(req, res) {
 
 // Register a new user (local auth)
 export async function register(req, res) {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username and password are required.' });
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: 'Username, email, and password are required.' });
   }
   try {
-    // Check if username already exists
+    // Check if username or email already exists
     const existingUser = await userService.findUserByUsername(username);
     if (existingUser) {
       return res.status(409).json({ message: 'Username already exists.' });
     }
+    const existingEmail = await userService.findUserByEmail(email);
+    if (existingEmail) {
+      return res.status(409).json({ message: 'Email already exists.' });
+    }
     // Create user and return JWT
-    const user = await userService.createUser(username, password);
+    const user = await userService.createUser(username, email, password);
     const token = signToken(user);
-    res.status(201).json({ message: 'User registered successfully.', token });
+    res.status(201).json({ message: 'User registered successfully.', token, user });
   } catch (err) {
     res.status(500).json({ message: 'Server error.' });
   }
