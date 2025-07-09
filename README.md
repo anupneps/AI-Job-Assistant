@@ -6,9 +6,10 @@ A multi-agent job application assistant using Next.js (frontend) and Node.js/Exp
 - Next.js (React)
 - Node.js (Express)
 - MongoDB (Mongoose)
-- JWT Authentication
+- JWT Authentication (username, email, password)
 - Google OAuth (planned)
 - Multer, pdf-parse (for CV upload/parse)
+- Axios (frontend API utility)
 
 ## Project Structure
 ```
@@ -44,25 +45,29 @@ frontend/
 | GOOGLE_CLIENT_ID      | Google OAuth client ID (optional)  |
 | GOOGLE_CLIENT_SECRET  | Google OAuth secret (optional)     |
 | GOOGLE_CALLBACK_URL   | Google OAuth callback URL          |
+| NEXT_PUBLIC_API_BASE_URL | Backend API base URL (frontend)  |
 
 ## API Endpoints (see docs/api.md for details)
 
 ### Auth
-- `POST /api/register` — Register user (body: username, password)
+- `POST /api/register` — Register user (body: username, email, password)
 - `POST /api/login` — Login (body: username, password)
 - `GET /api/profile` — Get user profile (JWT required)
 - `POST /api/logout` — Logout (client deletes JWT)
 - `GET /api/auth/google` — Google OAuth login (planned)
 
+### CV Upload
+- `POST /api/upload-resume` — Upload a PDF resume (authenticated). Extracts name, email, phone, and skills, and updates the user profile.
+
 ## Features
 
-- User authentication (JWT, Google OAuth)
-- Upload CV (PDF) and extract profile info
-- User profile management
-
-## API Overview
-
-- `POST /api/upload-resume` — Upload a PDF resume (authenticated). Extracts name, email, phone, and skills, and updates the user profile.
+- Secure JWT authentication (username, email, password)
+- Session persistence and protected routes
+- Onboarding: manual profile setup or CV upload (PDF parsing, progress bar)
+- Profile form supports custom sections
+- All API endpoints aligned frontend/backend
+- CORS and unique user validation
+- Glassmorphic, modern UI
 
 ## License
 
