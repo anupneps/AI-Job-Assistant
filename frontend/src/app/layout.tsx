@@ -25,8 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative`}
       >
+        {/* Global background gradient and blurred shapes */}
+        <div className="fixed inset-0 -z-10 bg-gradient-to-br from-blue-200/60 via-purple-200/60 to-pink-200/60 dark:from-[#181c2b] dark:via-[#23263a] dark:to-[#2a2d3e] w-full h-full overflow-hidden">
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-80 h-80 bg-indigo-400/20 rounded-full blur-2xl" />
+          <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-purple-400/20 rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2" />
+        </div>
         {children}
       </body>
     </html>

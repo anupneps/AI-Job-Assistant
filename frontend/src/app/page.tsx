@@ -1,103 +1,132 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authTab, setAuthTab] = useState<'login' | 'signup'>('login');
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      {/* Glassmorphic Hero Panel */}
+      <div className="backdrop-blur-xl bg-white/40 dark:bg-white/10 border border-white/30 dark:border-white/20 rounded-3xl shadow-2xl px-8 py-12 max-w-lg w-full flex flex-col items-center gap-6">
+        <header className="flex flex-col items-center mb-2">
+          <span className="mb-2">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+              <circle
+                cx="32"
+                cy="32"
+                r="28"
+                stroke="url(#grad)"
+                strokeWidth="6"
+                fill="none"
+                strokeDasharray="176"
+                strokeDashoffset="0"
+              >
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  from="0 32 32"
+                  to="360 32 32"
+                  dur="2.5s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle cx="32" cy="32" r="12" fill="url(#core)" opacity="0.7"/>
+              <circle cx="32" cy="32" r="5" fill="#1e40af"/>
+              <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#1e40af"/>
+                  <stop offset="1" stopColor="#3730a3"/>
+                </linearGradient>
+                <radialGradient id="core" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8"/>
+                  <stop offset="100%" stopColor="#1e40af" stopOpacity="0.2"/>
+                </radialGradient>
+              </defs>
+            </svg>
+          </span>
+          <span className="text-4xl font-extrabold bg-gradient-to-r from-blue-700 to-indigo-800 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+            JobLens AI
+          </span>
+          <span className="mt-1 text-base sm:text-lg text-foreground/60 font-medium tracking-wide">
+            Your Smart Career Partner
+          </span>
+        </header>
+        <h1 className="text-3xl sm:text-4xl font-bold text-foreground text-center drop-shadow-sm">
+          Welcome to JobLens AI
+        </h1>
+        <p className="text-lg text-foreground/80 text-center max-w-md">
+          Your personalized, AI-powered job search and application assistant. Upload your CV, get tailored job recommendations, and let smart agents help you land your next role.
+        </p>
+        <button
+          className="mt-4 px-8 py-3 rounded-full bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-semibold text-lg shadow-lg hover:scale-105 transition-transform backdrop-blur-md bg-opacity-80"
+          onClick={() => window.location.href = "/login"}
+        >
+          Login / Get Started
+        </button>
+      </div>
+
+      {/* Auth Modal */}
+      {showAuthModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="relative bg-white/80 dark:bg-[#181c2b]/90 border border-white/30 dark:border-white/20 rounded-2xl shadow-2xl p-8 w-full max-w-sm flex flex-col items-center">
+            <button
+              className="absolute top-3 right-3 text-2xl text-foreground/60 hover:text-foreground/90 focus:outline-none"
+              onClick={() => setShowAuthModal(false)}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <div className="flex gap-4 mb-6">
+              <button
+                className={`px-4 py-2 rounded-full font-semibold transition-colors ${authTab === 'login' ? 'bg-gradient-to-r from-blue-700 to-indigo-800 text-white shadow' : 'bg-white/60 text-foreground/70 border border-white/30'}`}
+                onClick={() => setAuthTab('login')}
+              >
+                Login
+              </button>
+              <button
+                className={`px-4 py-2 rounded-full font-semibold transition-colors ${authTab === 'signup' ? 'bg-gradient-to-r from-blue-700 to-indigo-800 text-white shadow' : 'bg-white/60 text-foreground/70 border border-white/30'}`}
+                onClick={() => setAuthTab('signup')}
+              >
+                Sign Up
+              </button>
+            </div>
+            <form className="w-full flex flex-col gap-4">
+              {authTab === 'signup' && (
+                <input
+                  type="text"
+                  placeholder="Username"
+                  className="rounded-lg px-4 py-2 bg-white/70 dark:bg-white/10 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-foreground"
+                  autoComplete="username"
+                  required
+                />
+              )}
+              <input
+                type="email"
+                placeholder="Email"
+                className="rounded-lg px-4 py-2 bg-white/70 dark:bg-white/10 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-foreground"
+                autoComplete="email"
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                className="rounded-lg px-4 py-2 bg-white/70 dark:bg-white/10 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-foreground"
+                autoComplete={authTab === 'login' ? 'current-password' : 'new-password'}
+                required
+              />
+              <button
+                type="submit"
+                className="mt-2 px-6 py-2 rounded-full bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-semibold text-lg shadow-lg hover:scale-105 transition-transform"
+              >
+                {authTab === 'login' ? 'Login' : 'Sign Up'}
+              </button>
+            </form>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      )}
     </div>
   );
 }
