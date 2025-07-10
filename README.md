@@ -65,10 +65,5 @@ frontend/
 - Session persistence and protected routes
 - Onboarding: manual profile setup or CV upload (PDF parsing, progress bar)
 - Profile form supports custom sections
-- All API endpoints aligned frontend/backend
-- CORS and unique user validation
-- Glassmorphic, modern UI
 
-## License
 
-MIT 
