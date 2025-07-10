@@ -29,7 +29,22 @@ export default function LoginPage() {
       const { data }: { data: any } = await api.post(endpoint, body);
       setToken(data.token);
       setUser(data.user);
-      router.push("/onboarding");
+      // Fetch profile to determine if onboarding is needed
+      try {
+        const profileRes = await api.get("/api/profile");
+        const profile: any = profileRes.data;
+        const needsOnboarding =
+          !profile.cvFilePath &&
+          (!profile.userProfile?.name || !profile.userProfile?.skills || profile.userProfile.skills.length === 0);
+        if (needsOnboarding) {
+          router.push("/onboarding");
+        } else {
+          router.push("/dashboard");
+        }
+      } catch {
+        // fallback: go to onboarding if profile fetch fails
+        router.push("/onboarding");
+      }
     } catch (err: any) {
       setError(err?.response?.data?.message || err.message || "Login failed");
     } finally {
