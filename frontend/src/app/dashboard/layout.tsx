@@ -35,16 +35,15 @@ export default function DashboardLayout({
     <div className="min-h-screen flex bg-transparent">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-white/20 backdrop-blur-xl border-r border-white/30 dark:bg-white/10 dark:border-white/20 shadow-2xl transform transition-transform duration-300 ease-in-out ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-      }`}>
+      <aside className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-white/20 backdrop-blur-xl border-r border-white/30 dark:bg-white/10 dark:border-white/20 shadow-2xl transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        }`}>
         <div className="flex flex-col h-full p-6 pt-8 pb-4">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
@@ -71,21 +70,21 @@ export default function DashboardLayout({
           </div>
 
           {/* Navigation */}
-          <nav className="flex flex-col gap-2 flex-1">
+          <nav className="flex flex-col gap-1.5 flex-1">
             {navItems.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.key}
                   href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all hover:bg-white/20 dark:hover:bg-white/10 ${
+                  className={`flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-sm shadow bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border-l-3 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg ${
                     isActive(item.href) 
-                      ? 'bg-blue-500/20 dark:bg-blue-500/30 text-blue-700 dark:text-blue-300' 
-                      : 'text-slate-700 dark:text-slate-300'
+                      ? 'border-blue-400 text-blue-900 dark:text-blue-200 ring-1 ring-blue-300' 
+                      : 'border-slate-400 text-slate-700 dark:text-slate-300 hover:border-blue-400 hover:text-blue-900 dark:hover:text-blue-200 hover:ring-1 hover:ring-blue-200'
                   }`}
                   onClick={() => setSidebarOpen(false)}
                 >
-                  <Icon size={20} />
+                  <Icon size={16} />
                   {item.label}
                 </Link>
               );
@@ -95,16 +94,17 @@ export default function DashboardLayout({
           {/* Logout */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-red-600 hover:bg-red-100/40 dark:hover:bg-red-700/30 transition-all"
+            className="flex items-center gap-2.5 px-3 py-2 rounded-md font-medium text-sm shadow bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border-l-3 border-red-400 text-red-700 dark:text-red-300 hover:ring-1 hover:ring-red-200 hover:scale-[1.02] hover:shadow-lg transition-all duration-200"
           >
-            <LogOut size={20} />
+            <LogOut size={16} />
             Logout
           </button>
+
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col h-screen">
         {/* Mobile Header */}
         <div className="md:hidden bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border-b border-white/30 dark:border-white/20 p-4">
           <div className="flex items-center justify-between">
@@ -124,7 +124,7 @@ export default function DashboardLayout({
         </div>
 
         {/* Page Content */}
-        <main className="flex-1">
+        <main className="flex-1 overflow-hidden">
           {children}
         </main>
       </div>

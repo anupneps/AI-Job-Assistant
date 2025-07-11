@@ -1,132 +1,286 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Briefcase, 
+  Brain, 
+  Zap, 
+  Target, 
+  ArrowRight, 
+  Sparkles,
+  Users,
+  TrendingUp,
+  Shield,
+  CheckCircle
+} from "lucide-react";
 
 export default function Home() {
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [authTab, setAuthTab] = useState<'login' | 'signup'>('login');
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const features = [
+    {
+      icon: Brain,
+      title: "AI-Powered Matching",
+      description: "Smart algorithms analyze your profile and find perfect job matches",
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: Zap,
+      title: "Instant Applications",
+      description: "Apply to multiple jobs with one-click optimized applications",
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: Target,
+      title: "Personalized Strategy",
+      description: "Get tailored advice from specialized AI agents for each application",
+      color: "from-emerald-500 to-teal-500"
+    }
+  ];
+
+  const stats = [
+    { number: "95%", label: "Success Rate", icon: TrendingUp },
+    { number: "10k+", label: "Jobs Matched", icon: Briefcase },
+    { number: "24/7", label: "AI Support", icon: Shield }
+  ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      {/* Glassmorphic Hero Panel */}
-      <div className="backdrop-blur-xl bg-white/40 dark:bg-white/10 border border-white/30 dark:border-white/20 rounded-3xl shadow-2xl px-8 py-12 max-w-lg w-full flex flex-col items-center gap-6">
-        <header className="flex flex-col items-center mb-2">
-          <span className="mb-2">
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-              <circle
-                cx="32"
-                cy="32"
-                r="28"
-                stroke="url(#grad)"
-                strokeWidth="6"
-                fill="none"
-                strokeDasharray="176"
-                strokeDashoffset="0"
-              >
-                <animateTransform
-                  attributeName="transform"
-                  type="rotate"
-                  from="0 32 32"
-                  to="360 32 32"
-                  dur="2.5s"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle cx="32" cy="32" r="12" fill="url(#core)" opacity="0.7"/>
-              <circle cx="32" cy="32" r="5" fill="#1e40af"/>
-              <defs>
-                <linearGradient id="grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#1e40af"/>
-                  <stop offset="1" stopColor="#3730a3"/>
-                </linearGradient>
-                <radialGradient id="core" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
-                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8"/>
-                  <stop offset="100%" stopColor="#1e40af" stopOpacity="0.2"/>
-                </radialGradient>
-              </defs>
-            </svg>
-          </span>
-          <span className="text-4xl font-extrabold bg-gradient-to-r from-blue-700 to-indigo-800 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
-            JobLens AI
-          </span>
-          <span className="mt-1 text-base sm:text-lg text-foreground/60 font-medium tracking-wide">
-            Your Smart Career Partner
-          </span>
-        </header>
-        <h1 className="text-3xl sm:text-4xl font-bold text-foreground text-center drop-shadow-sm">
-          Welcome to JobLens AI
-        </h1>
-        <p className="text-lg text-foreground/80 text-center max-w-md">
-          Your personalized, AI-powered job search and application assistant. Upload your CV, get tailored job recommendations, and let smart agents help you land your next role.
-        </p>
-        <button
-          className="mt-4 px-8 py-3 rounded-full bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-semibold text-lg shadow-lg hover:scale-105 transition-transform backdrop-blur-md bg-opacity-80"
-          onClick={() => window.location.href = "/login"}
-        >
-          Login / Get Started
-        </button>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 -z-10">
+        {/* Floating orbs */}
+        <motion.div
+          className="absolute top-20 left-20 w-32 h-32 bg-blue-400/20 rounded-full blur-xl"
+          animate={{
+            y: [0, -20, 0],
+            x: [0, 10, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute top-40 right-32 w-24 h-24 bg-cyan-400/20 rounded-full blur-xl"
+          animate={{
+            y: [0, 15, 0],
+            x: [0, -8, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
+        <motion.div
+          className="absolute bottom-32 left-1/3 w-28 h-28 bg-indigo-400/20 rounded-full blur-xl"
+          animate={{
+            y: [0, -12, 0],
+            x: [0, 15, 0],
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+        />
       </div>
 
-      {/* Auth Modal */}
-      {showAuthModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="relative bg-white/80 dark:bg-[#181c2b]/90 border border-white/30 dark:border-white/20 rounded-2xl shadow-2xl p-8 w-full max-w-sm flex flex-col items-center">
-            <button
-              className="absolute top-3 right-3 text-2xl text-foreground/60 hover:text-foreground/90 focus:outline-none"
-              onClick={() => setShowAuthModal(false)}
-              aria-label="Close"
-            >
-              &times;
-            </button>
-            <div className="flex gap-4 mb-6">
-              <button
-                className={`px-4 py-2 rounded-full font-semibold transition-colors ${authTab === 'login' ? 'bg-gradient-to-r from-blue-700 to-indigo-800 text-white shadow' : 'bg-white/60 text-foreground/70 border border-white/30'}`}
-                onClick={() => setAuthTab('login')}
-              >
-                Login
-              </button>
-              <button
-                className={`px-4 py-2 rounded-full font-semibold transition-colors ${authTab === 'signup' ? 'bg-gradient-to-r from-blue-700 to-indigo-800 text-white shadow' : 'bg-white/60 text-foreground/70 border border-white/30'}`}
-                onClick={() => setAuthTab('signup')}
-              >
-                Sign Up
-              </button>
+      {/* Main Content */}
+      <div className="relative z-10 min-h-screen flex flex-col">
+        {/* Header */}
+        <motion.header 
+          className="flex justify-between items-center p-6 md:p-8"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div 
+            className="flex items-center gap-3"
+            whileHover={{ scale: 1.05 }}
+          >
+            <div className="relative">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <motion.div
+                className="absolute -inset-1 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl blur opacity-30"
+                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
             </div>
-            <form className="w-full flex flex-col gap-4">
-              {authTab === 'signup' && (
-                <input
-                  type="text"
-                  placeholder="Username"
-                  className="rounded-lg px-4 py-2 bg-white/70 dark:bg-white/10 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-foreground"
-                  autoComplete="username"
-                  required
-                />
-              )}
-              <input
-                type="email"
-                placeholder="Email"
-                className="rounded-lg px-4 py-2 bg-white/70 dark:bg-white/10 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-foreground"
-                autoComplete="email"
-                required
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                className="rounded-lg px-4 py-2 bg-white/70 dark:bg-white/10 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-foreground"
-                autoComplete={authTab === 'login' ? 'current-password' : 'new-password'}
-                required
-              />
-              <button
-                type="submit"
-                className="mt-2 px-6 py-2 rounded-full bg-gradient-to-r from-blue-700 to-indigo-800 text-white font-semibold text-lg shadow-lg hover:scale-105 transition-transform"
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              JobLens AI
+            </span>
+          </motion.div>
+          
+          <motion.button
+            className="px-6 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white font-medium hover:bg-white/20 transition-all"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.location.href = "/login"}
+          >
+            Get Started
+          </motion.button>
+        </motion.header>
+
+        {/* Hero Section */}
+        <div className="flex-1 flex items-center justify-center px-6 md:px-8">
+          <div className="max-w-6xl w-full">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column - Hero Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : -50 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="space-y-8"
               >
-                {authTab === 'login' ? 'Login' : 'Sign Up'}
-              </button>
-            </form>
+                <div className="space-y-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-black/20 text-black/90 text-sm"
+                  >
+                    <Sparkles className="w-4 h-4 text-black" />
+                    AI-Powered Job Search Assistant
+                  </motion.div>
+                  
+                  <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
+                  >
+                    <span className="bg-gradient-to-r from-slate-800 to-slate-700 bg-clip-text text-transparent">
+                      Land Your
+                    </span>
+                    <br />
+                    <span className="bg-gradient-to-r from-blue-900 via-cyan-900 to-blue-800 bg-clip-text text-transparent">
+                      Dream Job
+                    </span>
+                  </motion.h1>
+                  
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                    className="text-xl text-slate-800 leading-relaxed max-w-lg"
+                  >
+                    Upload your CV, get personalized job recommendations, and let our AI agents help you craft the perfect application strategy.
+                  </motion.p>
+                </div>
+
+                {/* CTA Buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1 }}
+                  className="flex flex-col sm:flex-row gap-4"
+                >
+                  <motion.button
+                    className="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => window.location.href = "/login"}
+                  >
+                    Start Your Journey
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.button>
+                  
+                  <motion.button
+                    className="px-8 py-4 rounded-xl bg-gradient-to-r from-slate-800 to-slate-700 backdrop-blur-xl border border-white/20 text-white font-semibold text-lg hover:bg-white/20 transition-all"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Watch Demo
+                  </motion.button>
+                </motion.div>
+
+                {/* Stats */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                  className="flex gap-8 pt-8"
+                >
+                  {stats.map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      className="text-center"
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <div className="text-3xl font-bold text-slate-900 mb-1">{stat.number}</div>
+                      <div className="text-slate-700 text-sm">{stat.label}</div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+
+              {/* Right Column - Interactive Features */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: isLoaded ? 1 : 0, x: isLoaded ? 0 : 50 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="space-y-6"
+              >
+                {features.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    className="group relative"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 + index * 0.2 }}
+                    onHoverStart={() => setHoveredFeature(index)}
+                    onHoverEnd={() => setHoveredFeature(null)}
+                  >
+                    <motion.div
+                      className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 hover:bg-white/20 transition-all cursor-pointer"
+                      whileHover={{ scale: 1.02, y: -5 }}
+                      animate={{
+                        boxShadow: hoveredFeature === index 
+                          ? "0 20px 40px rgba(0,0,0,0.3)" 
+                          : "0 10px 30px rgba(0,0,0,0.2)"
+                      }}
+                    >
+                      <div className="flex items-start gap-4">
+                        <motion.div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center`}
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.6 }}
+                        >
+                          <feature.icon className="w-6 h-6 text-white" />
+                        </motion.div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                          <p className="text-slate-700 leading-relaxed">{feature.description}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
-      )}
+
+        {/* Bottom Wave Effect */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white/5 to-transparent"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.5 }}
+        />
+      </div>
     </div>
   );
 }
