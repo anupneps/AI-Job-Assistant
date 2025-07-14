@@ -1,6 +1,8 @@
 # AI Job Assistant
 
-A multi-agent job application assistant using Next.js (frontend) and Node.js/Express (backend).
+AI Job Assistant is a full-stack, multi-agent job application assistant designed to automate and enhance the job search process using modern web technologies and advanced AI/NLP. The project features a Next.js frontend, a Node.js/Express backend, and a dedicated Python FastAPI microservice for natural language processing tasks such as CV parsing, skill extraction, and job matching. 
+
+> **Note:** This project is being developed collaboratively with the help of Cursor AI Copilot, showcasing modern AI-assisted software engineering practices.
 
 ## Tech Stack
 - Next.js (React)
@@ -10,6 +12,7 @@ A multi-agent job application assistant using Next.js (frontend) and Node.js/Exp
 - Google OAuth (planned)
 - Multer, pdf-parse (for CV upload/parse)
 - Axios (frontend API utility)
+- **Python FastAPI Microservice** (for AI/NLP tasks, using spaCy and open-source models)
 
 ## Project Structure
 ```
@@ -21,6 +24,7 @@ backend/
   Models/
   Data/
 frontend/
+ai_services/   # Python FastAPI microservice for AI/NLP
 ```
 
 ## Setup
@@ -35,6 +39,13 @@ frontend/
 1. `cd frontend`
 2. `npm install`
 3. `npm run dev`
+
+### AI Microservice
+1. `cd ai_services`
+2. (Optional) Create and activate a Python virtual environment
+3. `pip install -r requirements.txt`
+4. `python -m spacy download en_core_web_sm`
+5. `uvicorn app.main:app --reload`
 
 ## Environment Variables
 
