@@ -1,6 +1,6 @@
 # AI Services Microservice
 
-This microservice is a core component of the AI-Job-Assistant portfolio project, designed to provide advanced Natural Language Processing (NLP) and AI-powered features for job application automation. Built with FastAPI and Python, it exposes endpoints for CV parsing, skill extraction, job matching, and more, leveraging open-source models like spaCy and Sentence Transformers for cost-effective, scalable AI. 
+This microservice is a core component of the AI-Job-Assistant portfolio project, designed to provide advanced Natural Language Processing (NLP) and AI-powered features for job application automation. Built with FastAPI and Python, it exposes endpoints for CV parsing, skill extraction, job matching, skill gap analysis, and multi-agent AI generation (CV optimization, cover letter, interview prep, skill enhancement). It leverages open-source models like spaCy and Sentence Transformers for cost-effective, scalable AI, and supports both local (GPT-2) and cloud (OpenAI) text generation.
 
 > **Note:** This project is being developed collaboratively with the help of Cursor AI Copilot, showcasing modern AI-assisted software engineering practices.
 
@@ -22,5 +22,16 @@ The service will be available at http://localhost:8000
 - `/parse-cv` : Parse CV text and extract structured information (skills, experience, education)
 - `/job-matching/health` : Health check for job matching service
 - `/job-matching` : Match CV to job descriptions using semantic similarity
+- `/skill-gap` : Analyze skill gaps between a CV and a job description
+- `/ai-generate` : Multi-agent AI endpoint for:
+  - `cv_optimization`: Suggest improvements to a CV for a specific job
+  - `cover_letter`: Generate a personalized cover letter draft
+  - `interview_prep`: Generate likely interview questions and suggested answers
+  - `skill_enhancement`: Recommend skills to learn and resources for upskilling
 
-More endpoints will be added as you build AI features! 
+## AI Models
+- **spaCy**: For NLP and entity extraction
+- **Sentence Transformers**: For semantic similarity and job matching
+- **GPT-2 (local) / OpenAI (cloud)**: For generative tasks (CV optimization, cover letter, etc.)
+
+More endpoints and features will be added as the project evolves! 

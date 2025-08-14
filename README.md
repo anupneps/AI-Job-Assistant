@@ -77,4 +77,13 @@ ai_services/   # Python FastAPI microservice for AI/NLP
 - Onboarding: manual profile setup or CV upload (PDF parsing, progress bar)
 - Profile form supports custom sections
 
+## AI Microservice (ai_services)
+
+The `ai_services` directory contains a dedicated Python FastAPI microservice that powers all advanced AI/NLP features for the platform, including:
+- CV parsing and skill extraction
+- Job matching and skill gap analysis
+- Multi-agent AI generation (CV optimization, cover letter, interview prep, skill enhancement)
+
+It leverages open-source models (spaCy, Sentence Transformers, GPT-2) and can optionally use OpenAI for generative tasks. For full details and API documentation, see [`ai_services/README.md`](ai_services/README.md).
+
 
